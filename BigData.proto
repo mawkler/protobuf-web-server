@@ -1,0 +1,34 @@
+package test;
+syntax = "proto3";
+
+message BigDataObjectArray {
+    repeated BigDataObject data = 1;
+}
+message BigDataObject {
+    message Actor {
+        int32 id = 1;
+        string login = 2;
+        string gravatar_id = 3;
+        string url = 4;
+        string avatar_url = 5;
+    }
+    message Repo {
+        int32 id = 1;
+        string name = 2;
+        string url = 3;
+    }
+    message Payload {
+        string ref = 1;
+        string ref_type = 2;
+        string master_branch = 3;
+        string description = 4;
+        string pusher_type = 5;
+    }
+    string id = 1;
+    string type = 2;
+    Actor actor = 3;
+    Repo repo = 4;
+    Payload payload = 5;
+    bool public = 6;
+    string created_at = 7;
+}
