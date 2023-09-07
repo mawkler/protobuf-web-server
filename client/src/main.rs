@@ -1,7 +1,5 @@
-use std::io::Cursor;
-
-use protobuf::big_data;
-use prost::Message;
+use big_data;
+use protobuf::Message;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -13,10 +11,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Bytes: {:?}", bytes.len());
 
     let big_data = deserialize_bigdata(&bytes)?;
-    // println!("{:#?}", big_data.data[0]);
-    Ok(())    
+    Ok(())
 }
 
-fn deserialize_bigdata(buf: &[u8]) -> Result<big_data::BigDataObjectArray, prost::DecodeError> {
-    big_data::BigDataObjectArray::decode(&mut Cursor::new(buf))
+fn deserialize_bigdata(
+    buf: &[u8],
+) -> Result<big_data::big_data::BigDataObjectArray, protobuf::Error> {
+    big_data::big_data::BigDataObjectArray::parse_from_bytes(buf)
 }
