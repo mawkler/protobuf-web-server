@@ -8,9 +8,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .bytes()
         .await?;
 
-    println!("Bytes: {:?}", bytes.len());
+    // println!("Bytes: {:?}", bytes.len());
 
     let big_data = deserialize_bigdata(&bytes)?;
+    println!("{}", big_data.data[0]);
     Ok(())
 }
 
