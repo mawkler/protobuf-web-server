@@ -1,5 +1,6 @@
-package test;
 syntax = "proto3";
+
+package bigdata;
 
 message BigDataObjectArray {
     repeated BigDataObject data = 1;

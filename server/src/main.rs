@@ -1,5 +1,6 @@
 use axum::{routing::get, Router};
 use std::net::SocketAddr;
+use protobuf::{big_data::BigDataObjectArray};
 
 #[tokio::main]
 async fn main() {
@@ -17,7 +18,9 @@ async fn main() {
             println!("Beep boop");
             "Hello, world!"
         }),
-    );
+    ).route("/proto", get(|| async {
+
+    }));
 
     // Address that server will bind to.
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
