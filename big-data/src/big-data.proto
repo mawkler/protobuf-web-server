@@ -19,11 +19,38 @@ message BigDataObject {
         string url = 3;
     }
     message Payload {
-        string ref = 1;
+        message Author {
+            string email = 1;
+            string name = 2;
+        }
+
+        message Commit {
+            string sha = 1;
+            Author author = 2;
+            string message = 3;
+            bool distinct = 4;
+            string url = 5;
+        }
+
+        optional string ref = 1;
         string ref_type = 2;
         string master_branch = 3;
         string description = 4;
         string pusher_type = 5;
+        int32 push_id = 6;
+        int32 size = 7;
+        int32 distinct_size = 8;
+        string head = 9;
+        string before = 10;
+        repeated Commit commits = 11;
+        string action = 12;
+    }
+    message Org {
+        int32 id = 1;
+        string login = 2;
+        string gravatar_id = 3;
+        string url = 4;
+        string avatar_url = 5;
     }
     string id = 1;
     string type = 2;
@@ -32,4 +59,5 @@ message BigDataObject {
     Payload payload = 5;
     bool public = 6;
     string created_at = 7;
+    Org org = 8;
 }

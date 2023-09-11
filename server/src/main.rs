@@ -1,7 +1,8 @@
 use axum::{routing::get, Router};
 use big_data::big_data::BigDataObjectArray;
+use protobuf_json_mapping::ParseOptions;
 use serde_json::Value;
-use std::{fs::File, io::BufReader, net::SocketAddr, fs::read_to_string};
+use std::{fs::read_to_string, fs::File, io::BufReader, net::SocketAddr};
 
 async fn open_and_parse_json() -> &'static str {
     let path = "large-file.json";
@@ -9,7 +10,14 @@ async fn open_and_parse_json() -> &'static str {
     // let reader = BufReader::new(file);
     let file_string = read_to_string(path).expect("File not found");
 
-    let foo: BigDataObjectArray= protobuf_json_mapping::parse_from_str(&file_string).expect("Failed to parse JSON");
+    let foo: BigDataObjectArray = protobuf_json_mapping::parse_from_str_with_options(
+        &file_string,
+        &ParseOptions {
+            ignore_unknown_fields: true,
+            ..Default::default()
+        },
+    )
+    .expect("Failed to parse JSON");
 
     // Read the JSON contents of the file as an instance of `User`.
     // let u: Value = serde_json::from_reader(reader).expect("Failed to parse JSON");
